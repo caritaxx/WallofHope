@@ -37,6 +37,11 @@ void draw() {
 
 void keyPressed() {
   if (key == ENTER || key == RETURN) {
+    float textWidth = textWidth(inputText);
+    float textHeight = textAscent() + textDescent();
+    float x = random(0, width - textWidth);
+    float y = random(textHeight, height - 150);
+
     texts.add(inputText);
     positions.add(new PVector(random(width - 200), random(height - 150)));
     submissionTimes.add(millis());
