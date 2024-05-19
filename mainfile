@@ -1,0 +1,51 @@
+ArrayList<String> texts = new ArrayList<String>();
+ArrayList<PVector> positions = new ArrayList<PVector>();
+ArrayList<Integer> submissionTimes = new ArrayList<Integer>();
+
+String inputText = "";
+
+void setup() {
+  size(800, 600);
+  background(255);
+  fill(0);
+  textSize(32);
+}
+
+void draw() {
+  background(255);
+  
+
+  fill(200);
+  rect(50, height - 100, 700, 50, 20); 
+  
+  
+  fill(0);
+  text(inputText, 60, height - 65);
+  
+
+  int currentTime = millis();
+  for (int i = texts.size() - 1; i >= 0; i--) {
+    if (currentTime - submissionTimes.get(i) > 20000) {
+      texts.remove(i);
+      positions.remove(i);
+      submissionTimes.remove(i);
+    } else {
+      text(texts.get(i), positions.get(i).x, positions.get(i).y);
+    }
+  }
+}
+
+void keyPressed() {
+  if (key == ENTER || key == RETURN) {
+    texts.add(inputText);
+    positions.add(new PVector(random(width - 200), random(height - 150)));
+    submissionTimes.add(millis());
+    inputText = "";
+  } else if (key == BACKSPACE) {
+    if (inputText.length() > 0) {
+      inputText = inputText.substring(0, inputText.length() - 1);
+    }
+  } else if (key != CODED) {
+    inputText += key;
+  }
+}
